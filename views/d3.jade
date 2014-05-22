@@ -7,29 +7,32 @@ html
 
     script(src="/socket.io/socket.io.js")
     script(src="/bower_components/jquery/jquery.min.js")
+    script(src="/bower_components/d3/d3.min.js")
     script(src="/javascript/pusher.color.min.js")
-    script#shader-fs(type="x-shader/x-fragment").
-        #ifdef GL_ES
-          precision highp float;
-          #endif
+    //- script#shader-fs(type="x-shader/x-fragment").
+    //-     #ifdef GL_ES
+    //-       precision highp float;
+    //-       #endif
           
-         uniform vec4 color;
+    //-      uniform vec4 color;
          
-        void main(void) {
-         gl_FragColor = color;
-        }
+    //-     void main(void) {
+    //-      gl_FragColor = color;
+    //-     }
     
-    script#shader-vs(type="x-shader/x-vertex").
-      attribute vec3 vertexPosition;
+    //- script#shader-vs(type="x-shader/x-vertex").
+    //-   attribute vec3 vertexPosition;
 
-      uniform mat4 modelViewMatrix;
-      uniform mat4 perspectiveMatrix;
+    //-   uniform mat4 modelViewMatrix;
+    //-   uniform mat4 perspectiveMatrix;
 
-      void main(void) {
-        gl_Position = perspectiveMatrix * modelViewMatrix * vec4(vertexPosition, 1.0);
-      }
+    //-   void main(void) {
+    //-     gl_Position = perspectiveMatrix * modelViewMatrix * vec4(vertexPosition, 1.0);
+    //-   }
   body
-    canvas#webGLCanvas
+    div#analyzerChart
+    //- canvas#webGLCanvas
     div#instructions
 
+    script(src="javascript/d3/d3-visualization.js")
     script(src="javascript/d3/d3.js")
