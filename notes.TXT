@@ -1,0 +1,10 @@
+notes
+
+client side
+  add new folder in public/javascript
+  add relevant libraries to folder
+  add script for the view
+
+server side
+  add new view
+
