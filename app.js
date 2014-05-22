@@ -64,6 +64,7 @@ app.get('/', routes.renderClient);
 app.get('/conductor', routes.renderConductor);
 app.get('/fireworks', routes.renderFireworks);
 app.get('/audio', routes.renderAudio);
+app.get('/facetracker', routes.renderFacetracker);
 app.get('/dancer', routes.renderDancer);
 app.get('/update', routes.renderUpdate);
 app.get('*', routes.render404);

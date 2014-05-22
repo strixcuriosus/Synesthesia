@@ -18,6 +18,10 @@ exports.renderDancer = function(req, res){
   res.render('dancer');
 };
 
+exports.renderFacetracker = function(req, res){
+  res.render('facetracker');
+};
+
 exports.renderUpdate = function(req, res){
   res.render('update');
 };
