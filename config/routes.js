@@ -10,6 +10,10 @@ exports.renderFireworks = function(req, res){
   res.render('fireworks');
 };
 
+exports.renderD3 = function(req, res){
+  res.render('d3');
+};
+
 exports.renderAudio = function(req, res){
   res.render('audio');
 };

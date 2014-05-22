@@ -12,6 +12,7 @@ $(document).ready(function() {
 
   server.on('audio', function(data) {
     initialize(data);
+    console.log(data);
   });
 
 });

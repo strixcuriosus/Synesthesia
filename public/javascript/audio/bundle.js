@@ -64,7 +64,7 @@ var streamLoaded = function(stream) {
 };
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
-navigator.getUserMedia( {audio:true}, streamLoaded);
+navigator.getUserMedia( {audio:true}, streamLoaded, function(err){console.log(err);});
 
 var startEmitting = function() {
   h1.text("Calibrating...");

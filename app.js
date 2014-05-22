@@ -32,6 +32,7 @@ var middleware = require('./config/middleware.js');
 var conductor = io.of('/conductor');
 var clients = io.of('/client');
 var fireworks = io.of('/fireworks');
+var d3 = io.of('/d3');
 var dancer = io.of('/dancer');
 var audio = io.of('/audio');
 
@@ -63,6 +64,7 @@ middleware.setSettings(app, express);
 app.get('/', routes.renderClient);
 app.get('/conductor', routes.renderConductor);
 app.get('/fireworks', routes.renderFireworks);
+app.get('/d3', routes.renderD3);
 app.get('/audio', routes.renderAudio);
 app.get('/dancer', routes.renderDancer);
 app.get('/update', routes.renderUpdate);
@@ -81,6 +83,10 @@ app.use(function(err, req, res, next){
 
 fireworks.on('connection', function (firework) {
   firework.emit("welcome", "Visualizer connected.");
+});
+
+d3.on('connection', function (d3visualization) {
+  d3visualization.emit("welcome", "Visualizer connected.");
 });
 
 //////////////////////////////////////////
@@ -197,5 +203,6 @@ audio.on('connection', function (audio) {
       clients.emit('audio', data);
     }
     fireworks.emit('audio', data);
+    d3.emit('audio', data);
   });
 });
