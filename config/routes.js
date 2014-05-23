@@ -26,13 +26,17 @@ exports.renderUpdate = function(req, res){
   res.render('update');
 };
 
-exports.renderFacetracker = function(req, res){
-  res.render('facetracker');
-};
-
 exports.renderGrid = function(req, res){
   res.render('grid');
 };
+
+exports.renderOptiFlow = function(req, res) {
+  res.render('optiflow');
+}
+
+exports.renderLineDance = function(req, res) {
+  res.render('linedance');
+}
 
 exports.render404 = function(req, res){
   res.writeHead(404);
