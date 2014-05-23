@@ -160,7 +160,7 @@ module.exports = {
 var helpers =   require('./audioHelpers.js');
 
 module.exports = function(context,source) {
-  var analyser = helpers.makeAnalyser(context,2048,-30,-144);
+  var analyser = helpers.makeAnalyser(context,256,-30,-144);
   analyser.threshold = analyser.minDecibels;
   source.connect(analyser);
   var _FFT = new Float32Array(analyser.frequencyBinCount);

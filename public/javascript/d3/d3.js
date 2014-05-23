@@ -7,9 +7,10 @@ $(document).ready(function() {
     console.log("welcomed", data);
   });
 
-  // server.on('motionData', function(data) {
-  //   initialize(data);
-  // });
+  server.on('motionData', function(data) {
+    // initialize(data);
+    console.log(data);
+  });
 
   server.on('audio', function(data) {
     updateSvg(data);
