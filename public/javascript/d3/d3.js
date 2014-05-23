@@ -3,6 +3,7 @@ var server = io.connect('/d3');
 $(document).ready(function() {
 
   server.on('welcome', function(data) {
+    initialize(data);
     console.log("welcomed", data);
   });
 
@@ -11,8 +12,8 @@ $(document).ready(function() {
   // });
 
   server.on('audio', function(data) {
-    initialize(data);
-    console.log(data);
+    updateSvg(data);
+    // console.log(data);
   });
 
 });
