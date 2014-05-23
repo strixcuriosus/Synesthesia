@@ -67,6 +67,7 @@ app.get('/audio', routes.renderAudio);
 app.get('/facetracker', routes.renderFacetracker);
 app.get('/dancer', routes.renderDancer);
 app.get('/update', routes.renderUpdate);
+app.get('/facetracker', routes.renderFacetracker);
 app.get('*', routes.render404);
 app.use(function(err, req, res, next){
   if(err) {
@@ -151,7 +152,7 @@ conductor.on('connection', function (conductor) {
   });
 
   conductor.on('audioLightControl', function (data){
-    var clients = io.of('/client'); 
+    var clients = io.of('/client');
     if (data.audio) {
       state.audioLights = true;
     } else {
