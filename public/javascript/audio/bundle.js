@@ -73,9 +73,12 @@ var startEmitting = function() {
     h1.text('Emitting audio stream.');
     state.emitting = true;
     pitchAnalyser.start(60,function(data){
-      if (data.volume > pitchAnalyser.threshold) {
-        server.emit("audio",data);
-      }
+      var freqDomain = new Uint8Array(pitchAnalyser.frequencyBinCount);
+      pitchAnalyser.getByteFrequencyData(freqDomain);
+      server.emit("audio", freqDomain);
+      // if (data.volume > pitchAnalyser.threshold) {
+      //   server.emit("audio",data);
+      // }
     });
   });
 };
