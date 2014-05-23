@@ -1,45 +1,66 @@
-var margin = {top: 50, right: 280, bottom: 50, left: 280},
-    width = window.innerWidth - margin.left - margin.right,
-    height = window.innerHeight - margin.top - margin.bottom;
+var width = window.innerWidth,
+    height = window.innerHeight,
+    τ = 2 * Math.PI,
+    nodes;
 
-var sourcePoints = [[0, 0],
-                    [width, 0],
-                    [width/4, height/4],
-                    // [width, height],
-                    [0, height]],
+window.onresize = function (){ 
+  width = window.innerWidth;
+  height = window.innerHeight; 
+  initialize();
+}
 
-    targetPoints = [[0, 0],
-                    [width, 0],
-                    [width/4, height/4],
-                    // [width, height],
-                    [0, height]];
+var initialize = function(num) {
+  nodes = d3.range(num).map(function() {
+    return {
+      x: Math.random() * width,
+      y: Math.random() * height
+    };
+  });
+};
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+initialize(400);
 
-var line = svg.selectAll(".line")
-    .data(d3.range(0, width + 1, 10).map(function(x) { return [[x, 0], [x, height]]; })
-      .concat(d3.range(0, height + 1, 10).map(function(y) { return [[0, y], [width, y]]; })))
-  .enter().append("path")
-    .attr("class", "line line--x");
+var voronoi = d3.geom.voronoi()
+    .x(function(d) { return d.x; })
+    .y(function(d) { return d.y; });
 
-var handle = svg.selectAll(".handle")
-    .data(targetPoints)
-  .enter().append("circle")
-    .attr("class", "handle")
-    .attr("transform", function(d) { return "translate(" + d + ")"; })
-    .attr("r", 7)
-    .call(d3.behavior.drag()
-      .origin(function(d) { return {x: d[0], y: d[1]}; })
-      .on("drag", dragged));
+var links = voronoi.links(nodes);
 
-d3.selectAll("button")
-    .datum(function(d) { return JSON.parse(this.getAttribute("data-targets")); })
-    .on("click", clicked)
-    .call(transformed);
+var force = d3.layout.force()
+    .size([width, height])
+    .nodes(nodes)
+    .on("tick", ticked)
+    .start();
+
+var canvas = d3.select("body").append("canvas")
+    .attr("width", width)
+    .attr("height", height);
+
+var context = canvas.node().getContext("2d");
+
+function ticked() {
+  context.clearRect(0, 0, width, height);
+
+  context.beginPath();
+  links.forEach(function(d) {
+    context.moveTo(d.source.x, d.source.y);
+    context.lineTo(d.target.x, d.target.y);
+  });
+  context.lineWidth = 1;
+  context.strokeStyle = "#bbb";
+  context.stroke();
+
+  context.beginPath();
+  nodes.forEach(function(d) {
+    context.moveTo(d.x, d.y);
+    context.arc(d.x, d.y, 2, 0, τ);
+  });
+  context.lineWidth = 3;
+  context.strokeStyle = "#fff";
+  context.stroke();
+  context.fillStyle = "#000";
+  context.fill();
+}
 
 function clicked(d) {
   d3.transition()
