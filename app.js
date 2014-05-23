@@ -32,8 +32,10 @@ var middleware = require('./config/middleware.js');
 var conductor = io.of('/conductor');
 var clients = io.of('/client');
 var fireworks = io.of('/fireworks');
+var facetracker = io.of('/facetracker');
 var dancer = io.of('/dancer');
 var audio = io.of('/audio');
+var grid = io.of('/grid');
 
 // instantiate state object (keeps track of performance state)
 var state = {
@@ -67,7 +69,7 @@ app.get('/audio', routes.renderAudio);
 app.get('/facetracker', routes.renderFacetracker);
 app.get('/dancer', routes.renderDancer);
 app.get('/update', routes.renderUpdate);
-app.get('/facetracker', routes.renderFacetracker);
+app.get('/grid', routes.renderGrid);
 app.get('*', routes.render404);
 app.use(function(err, req, res, next){
   if(err) {
@@ -203,4 +205,12 @@ audio.on('connection', function (audio) {
     }
     fireworks.emit('audio', data);
   });
+});
+
+//////////////////////////////////////////
+/// Grid visualizer
+//////////////////////////////////////////
+
+grid.on('connection', function (data) {
+  data.emit("welcome", "Grid visualizer connected.");
 });

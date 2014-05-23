@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title Sound Visualization 
+    meta(http-equiv="content-type", content="text/html; charset=utf-8")
+    link(type="text/css", rel="stylesheet", href="stylesheets/grid.css")
+
+    script(src="/socket.io/socket.io.js")
+    script(src="/bower_components/jquery/jquery.min.js")
+
+  body
+    div#background
+      div buttons
+        button(data-targets="[[492,329],[542,330],[569,434],[424,424]]") Floor
+        button(data-targets="[[-28,287],[74,288],[72,413],[-31,404]]") Near Wall
+        button(data-targets="[[-194,282],[-95,282],[-100,354],[-200,365]]") Far Wall
+        button(data-targets="[[0,0],[400,0],[400,400],[0,400]]") Reset
+
+    script(src="bower_components/d3/d3.min.js")
+    script(src="javascript/grid/numeric_solver.js")
+    script(src="javascript/grid/grid-animation.js")
+    script(src="javascript/grid/grid.js")
