@@ -8,14 +8,14 @@ var throttledUpdate = _.throttle(function(optiFlowData) {
       if(optiFlowData.zones.length > 1000) {
         circle.data(optiFlowData.zones)
           .transition()
-          .duration(100)
+          .duration(500)
           .attr("cx", function(d) {return d.x})
           .attr("cy", function(d) {return d.y})
-          .attr("r", function(d) { return Math.max(0.1, (Math.sqrt(Math.pow(d.u, 2) + Math.pow(d.v, 2))))})
+          .attr("r", function(d) { return Math.max(1, 2*(Math.sqrt(Math.pow(d.u, 2) + Math.pow(d.v, 2))))})
           .style("stroke", "green") //d3.hsl((i = (i + 1) % 360), 1, .5)
           .style("stroke-opacity", 1)
       }
-}, 50);
+}, 200);
 
 
 server.on('optiFlowData', throttledUpdate);
