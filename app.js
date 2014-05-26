@@ -36,6 +36,7 @@ var dancer = io.of('/dancer');
 var audio = io.of('/audio');
 var optiflow = io.of('/optiflow');
 var linedance = io.of('/linedance');
+var satellite = io.of('/satellite');
 
 
 // instantiate state object (keeps track of performance state)
@@ -223,5 +224,6 @@ optiflow.on('connection', function (optiflow) {
   optiflow.on('optiFlowData', function (optiFlowData) {
     // console.log(optiFlowData);
     linedance.emit('optiFlowData', optiFlowData);
+    satellite.emit('optiFlowData', optiFlowData);
   })
 });
