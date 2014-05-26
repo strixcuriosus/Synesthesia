@@ -70,6 +70,7 @@ app.get('/fireworks', routes.renderFireworks);
 app.get('/audio', routes.renderAudio);
 app.get('/optiflow', routes.renderOptiFlow);
 app.get('/linedance', routes.renderLineDance);
+app.get('/satellite', routes.renderSatellite);
 app.get('/dancer', routes.renderDancer);
 app.get('/update', routes.renderUpdate);
 app.get('*', routes.render404);
