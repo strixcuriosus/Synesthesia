@@ -51,17 +51,17 @@ var updateSvg = function(data){
 
   }
 
-  svg = d3.select('body #analyzerChart svg')
+  svg = d3.select('body #analyzerChart svg');
 
   svg.selectAll('rect')
      .data(audiodata) //, function(d) {return d;});
+   // .transition()
+   //   .duration(2000)
      .attr('x', function(d) {return d.key*barWidth;})
      .attr('y',  h/2)
      .attr('width', barWidth) // data.length - barPadding)
      .attr('height', function(d) {return d.value;})
-     .attr('fill', function(d){return "hsl(" + (d.key/binCount*360) + ", 100%, 50%";})
-   .transition()
-     .duration(2000);
+     .attr('fill', function(d){return "hsl(" + (d.key/binCount*360) + ", 100%, 50%";});
 
   console.log("Updated");
 
