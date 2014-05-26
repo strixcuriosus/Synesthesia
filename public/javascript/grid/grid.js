@@ -10,4 +10,8 @@ $(document).ready(function() {
     initialize(data);
   });
 
+  server.on('optiFlowData', function(data) {
+    initialize(data);
+  })
+
 });

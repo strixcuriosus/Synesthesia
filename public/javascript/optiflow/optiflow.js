@@ -1,6 +1,8 @@
 var server = io.connect('/optiflow');
 var flow = new oflow.WebCamFlow();
 var printed = false;
+var $h1 = $('h1')
+
 var sendData = function(optiFlowData) {
   server.emit('optiFlowData', optiFlowData);
   if (!printed) {
@@ -12,6 +14,7 @@ var sendData = function(optiFlowData) {
 
 server.on('welcome', function(data) {
   if (data.tracking) {
+    $h1.text(data.message);
     flow.startCapture();
   } else {
     $h1.text('Connected. Optical flow tracking off.');

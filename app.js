@@ -226,13 +226,13 @@ grid.on('connection', function (data) {
 //////////////////////////////////////////
 
 optiflow.on('connection', function (optiflow) {
-  //console.log('optiflow connected'); //temp logging to check socket connection establishment
+  console.log('optiflow connected'); //temp logging to check socket connection establishment
   optiflow.emit('welcome', { 
     message: "Connected for optical flow tracking.",
     tracking: state.optiFlowTrack
   });
   optiflow.on('optiFlowData', function (optiFlowData) {
-    // console.log(optiFlowData);
     linedance.emit('optiFlowData', optiFlowData);
+    grid.emit('optiFlowData', optiFlowData);
   })
 });

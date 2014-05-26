@@ -28,6 +28,8 @@ var links = voronoi.links(nodes);
 
 var force = d3.layout.force()
     .size([width, height])
+    .charge(-202)
+    .gravity(.5)
     .nodes(nodes)
     .on("tick", ticked)
     .start();
@@ -43,8 +45,8 @@ function ticked() {
 
   context.beginPath();
   links.forEach(function(d) {
-    context.moveTo(d.source.x, d.source.y);
-    context.lineTo(d.target.x, d.target.y);
+    // context.moveTo(d.source.x, d.source.y);
+    // context.lineTo(d.target.x, d.target.y);
   });
   context.lineWidth = 1;
   context.strokeStyle = "#bbb";
