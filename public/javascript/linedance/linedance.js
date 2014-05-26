@@ -4,14 +4,17 @@ server.on('welcome', function (data) {
   });
 
 
+var width = Math.max(960, innerWidth), //640
+    height = Math.max(500, innerHeight); //480
+
 var throttledUpdate = _.throttle(function(optiFlowData) {
       if(optiFlowData.zones.length > 1000) {
         circle.data(optiFlowData.zones)
           .transition()
-          .duration(500)
-          .attr("cx", function(d) {return d.x})
-          .attr("cy", function(d) {return d.y})
-          .attr("r", function(d) { return Math.max(1, 2*(Math.sqrt(Math.pow(d.u, 2) + Math.pow(d.v, 2))))})
+          .duration(700)
+          .attr("cx", function(d) {return d.x * width / 640})
+          .attr("cy", function(d) {return d.y * height / 480})
+          .attr("r", function(d) { return Math.max(0.3, (Math.sqrt(Math.pow(d.u, 2) + Math.pow(d.v, 2))))})
           .style("stroke", "green") //d3.hsl((i = (i + 1) % 360), 1, .5)
           .style("stroke-opacity", 1)
       }
@@ -19,9 +22,6 @@ var throttledUpdate = _.throttle(function(optiFlowData) {
 
 
 server.on('optiFlowData', throttledUpdate);
-
-var width = Math.max(960, innerWidth),
-    height = Math.max(500, innerHeight);
 
 var init = [];
 init.length = 1036;
@@ -35,7 +35,7 @@ var svg = d3.select("body").append("svg")
 svg.append("rect")
     .attr("width", width)
     .attr("height", height)
-    .on("ontouchstart" in document ? "touchmove" : "mousemove", particle);
+    .on(("ontouchstart" in document ? "touchmove" : "mousemove"), particle);
 
 var circle = svg.selectAll("circle")
    .data(init)
@@ -45,6 +45,7 @@ var circle = svg.selectAll("circle")
    .attr("height", 15)
    .attr("cx", 400)
    .attr("cy", 400)
+   .attr("r", 5)
 
 var particle = function (dataPoint) {
   console.log(dataPoint);
